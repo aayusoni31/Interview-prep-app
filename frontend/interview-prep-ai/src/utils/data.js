@@ -41,10 +41,10 @@ export const APP_FEATURES = [
     description:
       "Learn from well-formatted code examples with syntax highlighting to better understand coding interview answers.",
   },
-  {
-    id: "08",
-    title: "Modern Learning Experience",
-    description:
-      "Enjoy a smooth and interactive interface designed to make interview preparation engaging and effective.",
-  },
+  // {
+  //   id: "08",
+  //   title: "Modern Learning Experience",
+  //   description:
+  //     "Enjoy a smooth and interactive interface designed to make interview preparation engaging and effective.",
+  // },
 ];
