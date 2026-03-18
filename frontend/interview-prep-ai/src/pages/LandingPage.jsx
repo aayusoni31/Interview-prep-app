@@ -6,8 +6,10 @@ import { APP_FEATURES } from "../utils/data";
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  // below line means whether the model is open or not , if true then show model otherwise hide
   const [openAuthModal, setOpenAuthModal] = useState(false);
-
+  // This controls what is shown inside modal
+  const [currentPage, setCurrentPage] = useState("login");
   const handleCTA = () => {
     navigate("/dashboard");
   };
@@ -116,6 +118,23 @@ const LandingPage = () => {
           Made with happy coding
         </div>
       </div>
+      {/* A modal = popup box on screen */}
+      <Modal
+        isOpen={openAuthModal}
+        // below the line means when we click on close button then authmodel will be close and current page reset to login again
+        onClose={() => {
+          setOpenAuthModal(false);
+          setCurrentPage("login");
+        }}
+        hideHeader
+      >
+        <div className="">
+          {currentPage === "login" && <Login setCurrentPage={setCurrentPage} />}
+          {currentPage === "signup" && (
+            <SignUp setCurrentPage={setCurrentPage} />
+          )}
+        </div>
+      </Modal>
     </>
   );
 };
