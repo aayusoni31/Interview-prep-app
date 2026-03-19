@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { LuSparkles } from "react-icons/lu";
 import HERO_IMG from "../assets/HERO_IMG.jpeg";
 import { APP_FEATURES } from "../utils/data";
-
+import Modal from "../components/Modal";
+import SignUp from "./auth/SignUp";
+import Login from "./auth/Login";
 const LandingPage = () => {
   const navigate = useNavigate();
   // below line means whether the model is open or not , if true then show model otherwise hide
