@@ -4,6 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const connectDB = require("./config/db");
 const app = express();
+const authRoutes = require("./routes/authRoutes");
 app.use(
   cors({
     origin: "*",
