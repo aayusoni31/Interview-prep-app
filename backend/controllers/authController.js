@@ -17,6 +17,7 @@ const registerUser = async (req, res) => {
     if (userExists) {
       return res.status(400).json({ message: "User already exist." });
     }
+    // encrypt the pass
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     // creating new user
