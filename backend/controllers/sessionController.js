@@ -1,6 +1,5 @@
 const Session = require("../models/Session");
 const Question = require("../models/Question");
-const { route } = require("../routes/authRoutes");
 
 // @desc create a new session and linked question
 // @route Post /api/sessions/create
