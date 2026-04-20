@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LuSparkles } from "react-icons/lu";
 import HERO_IMG from "../assets/HERO_IMG.jpeg";
@@ -6,14 +6,20 @@ import { APP_FEATURES } from "../utils/data";
 import Modal from "../components/Modal";
 import SignUp from "./auth/SignUp";
 import Login from "./auth/Login";
+import { UserContext } from "../context/userContext";
 const LandingPage = () => {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   // below line means whether the model is open or not , if true then show model otherwise hide
   const [openAuthModal, setOpenAuthModal] = useState(false);
   // This controls what is shown inside modal
   const [currentPage, setCurrentPage] = useState("login");
   const handleCTA = () => {
-    navigate("/dashboard");
+    if (!user) {
+      setOpenAuthModal(true);
+    } else {
+      navigate("/dashboard");
+    }
   };
 
   return (
@@ -25,13 +31,16 @@ const LandingPage = () => {
             <div className="text-xl font-bold text-black">
               Interview Prep AI
             </div>
-
-            <button
-              className="bg-gradient-to-r from-[#ffbd24] to-[#e99a4b] text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-black hover:text-white transition-colors"
-              onClick={() => setOpenAuthModal(true)}
-            >
-              Login / SignUp
-            </button>
+            {user ? (
+              <ProfileInfoCard />
+            ) : (
+              <button
+                className="bg-gradient-to-r from-[#ffbd24] to-[#e99a4b] text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-black hover:text-white transition-colors"
+                onClick={() => setOpenAuthModal(true)}
+              >
+                Login / SignUp
+              </button>
+            )}
           </header>
 
           {/* Hero Section */}

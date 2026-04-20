@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Input from "../../components/Inputs/Input";
 import { validateEmail } from "../../utils/helper";
+import { API_PATHS } from "../../utils/apiPaths";
+import axiosInstance from "../../utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
+
 const Login = ({ setCurrentPage }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const { updateUser } = useContext(UserContext);
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {
@@ -22,8 +28,19 @@ const Login = ({ setCurrentPage }) => {
       setError("Please enter email and password");
       return;
     }
+    setError("");
     // login api call
     try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+        email,
+        password,
+      });
+      const { token } = response.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        updateUser(response.data);
+        navigate("/dashboard");
+      }
     } catch (error) {
       if (error.response && error.response.data.message) {
         setError(error.response.data.message);
