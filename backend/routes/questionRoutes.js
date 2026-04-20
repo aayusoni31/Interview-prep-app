@@ -4,7 +4,7 @@ const {
   updateQuestionNote,
   addQuestionsToSession,
 } = require("../controllers/questionController");
-const protect = require("../middleware/authMiddleware");
+const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 

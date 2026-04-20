@@ -12,7 +12,7 @@ const generateToken = (userId) => {
 // access publuic
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password = word, profileImageUrl } = req.body;
+    const { name, email, password, profileImageUrl } = req.body;
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: "User already exist." });
@@ -51,13 +51,13 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(500).json({ message: "Invalid email or password" });
+      return res.status(500).json({ message: "Invalid email or password" });
     }
 
     // compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      res.status(500).json({ message: "Invalid email or password" });
+      return res.status(500).json({ message: "Invalid email or password" });
     }
 
     // return user data with jwt
